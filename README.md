@@ -19,15 +19,16 @@ The program starts as a lambda function and scrapes the NC website using beautif
 
 The data is then sent out as SMS using Twilio SMS api.  You will need your own credientials.
 
-Using a cloudwatch event, the lambda is called every 6 hours.  I don't currently know how quickly NC will update data.  Also, the website layout was changed overnight and required me to quick tweak the scraping (NC -- please don't change layout OR provide an API -- please).
+Using a cloudwatch event, the lambda is called *every 6 hours*.  I don't currently know how quickly NC will update the data.  Also, the website layout was changed overnight and required me to quickly tweak the scraping (NC -- please don't change the layout OR provide an API -- please).
 
 **Comments**
 
-* This could easily be expanded to other counties, states, or countries.  This could easily be expanded to be an aggregator of multiple data sources.  
+* This could easily be expanded to other counties, states, or countries.  
+* This could easily be developed into an aggregator of multiple data sources.  
 * Since the data is not changing that quickly, please don't query the NC website excessively.
 * The lambda function is not expensive.  However, the current set-up uses twilio sms.  This can add-up and certaining other services or APIs can be built to lower the cost.
 
 **Thank You**
 
-[Center for Health Care Innovation](https://school.wakehealth.edu/Research/Institutes-and-Centers/Center-for-Healthcare-Innovation) at [Wake Forest Baptist Health](https://www.wakehealth.edu)
-Michael Kennedy of [Talk Python](https://training.talkpython.fm/)
+* [Center for Health Care Innovation](https://school.wakehealth.edu/Research/Institutes-and-Centers/Center-for-Healthcare-Innovation) at [Wake Forest Baptist Health](https://www.wakehealth.edu)
+* Michael Kennedy of [Talk Python](https://training.talkpython.fm/)
