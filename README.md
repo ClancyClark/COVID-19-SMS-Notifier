@@ -1,6 +1,6 @@
 # COVID-19-SMS-Notifier
 
-
+![US COVID-19 Map]()
 Demonstration of rapid development using python by a total novice.  This application scrapes NC Department of Public Health COVID-19 data.  Every 6 hours AWS cloudwatch triggers an AWS lambda function that sends the update as SMS via Twilio.
 
 **Building Blocks:**
