@@ -57,10 +57,14 @@ def current_covid_status():
     # parse each
     # for row in table_rows:
     #     print(row)
-    cases = table_rows[4].text.strip()
-    deaths = table_rows[5].text.strip()
+    cases = table_rows[5].text.strip()
+    deaths = table_rows[6].text.strip()
+    all_cases = table_rows[8].text.strip()
+    all_deaths = table_rows[9].text.strip()
     print(f'Current Cases: {cases}')
     print(f'Current NC Deaths: {deaths}')
+    print(f'All US Cases: {all_cases}')
+    print(f'All US Deaths: {all_deaths}')
     
     report = f'North Carolina COVID-19 Update: NC Cases {cases}, NC Deaths {deaths}'
     print(report)
