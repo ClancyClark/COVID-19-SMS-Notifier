@@ -13,7 +13,7 @@ Demonstration of rapid development using python by a total novice.  This applica
 
 **Data Source:**
 
-First, be responsible!  Don't hammer the [NC Department of Public Health Website](https://www.ncdhhs.gov/covid-19-case-count-nc).  I am only querying *every 6 hours*.  If they had an api, it would be a little easier.  [CDC](https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html) currently (3/13/2020) doesn't have an api either.  Not sure why.
+First, be responsible!  Don't hammer the [NC Department of Public Health Website](https://www.ncdhhs.gov/covid-19-case-count-nc).  I am only querying *every 6 hours*.  If they had an api, it would be a little easier.  [CDC](https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html) currently (3/29/2020) doesn't have an api either.  Not sure why.
 
 **Set-up**
 
