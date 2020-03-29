@@ -8,11 +8,13 @@ from urllib import request, parse
 TWILIO_ACCOUNT_SID = 'YOUR_SID'
 TWILIO_AUTH_TOKEN = 'YOUR_AUTH_TOKEN'
 TWILIO_SMS_URL = "https://api.twilio.com/2010-04-01/Accounts/{}/Messages.json"
+TARGET_TO_PHONE_NUMBERS = ['+1-ADD NUMBER','+1-ADD NUMBER']
 
-def send_sms(cases, deaths):
-    to_number = 'YOUR_NUMBER'
-    from_number = 'YOUR_TWILIO_NUMBER'
-    body = f'North Carolina COVID-19 Update: Cases {cases}, Deaths {deaths}'
+
+def send_sms(the_message, to_phone_number):
+    to_number = to_phone_number
+    from_number = '+13367702882'
+    body = the_message
 
     if not TWILIO_ACCOUNT_SID:
         return "Unable to access Twilio Account SID."
@@ -41,12 +43,12 @@ def send_sms(cases, deaths):
     try:
         # perform HTTP POST request
         with request.urlopen(req, data) as f:
+            print('made it here')
             print("Twilio returned {}".format(str(f.read().decode('utf-8'))))
     except Exception as e:
         # something went wrong!
         return e
-
-    return "SMS sent successfully!"
+    return 'Successful SMS!'
     
     
 def current_covid_status():
@@ -54,22 +56,41 @@ def current_covid_status():
     page = requests.get(html)
     soup = BeautifulSoup(page.text, 'html.parser')
     table_rows = soup.find_all('td')
-    # parse each
+    # # parse each
+    # n = 0
     # for row in table_rows:
-    #     print(row)
-    cases = table_rows[5].text.strip()
-    deaths = table_rows[6].text.strip()
-    all_cases = table_rows[8].text.strip()
-    all_deaths = table_rows[9].text.strip()
-    print(f'Current Cases: {cases}')
+    #     n=n+1
+    #     print(f'row {n}: {row}')
+        
+    cases = table_rows[4].text.strip().replace(',','')
+    deaths = table_rows[5].text.strip().replace(',','')
+    total_tested = table_rows[6].text.strip().replace(',','')
+    in_hosp = table_rows[7].text.strip().replace(',','')
+    ICU_beds = table_rows[240].text.strip().replace(',','')
+    ICU_empty = table_rows[241].text.strip().replace(',','')
+    percent_positive = (int(cases)/int(total_tested))*100
+    percent_ICU_beds_open = (int(ICU_empty)/int(ICU_beds))*100
+    percent_hospitalized = (int(in_hosp)/int(cases))*100
+    # all_cases = table_rows[8].text.strip().replace(',','')
+    # # all_deaths = table_rows[9].text.strip().replace(',','')
+    # percent_of_US_population = (int(all_cases)/327200000)*100
+    current_mortality = (int(deaths)/int(cases))*100
+    print(f'Current NC Cases: {cases}')
     print(f'Current NC Deaths: {deaths}')
-    print(f'All US Cases: {all_cases}')
-    print(f'All US Deaths: {all_deaths}')
-    
-    report = f'North Carolina COVID-19 Update: NC Cases {cases}, NC Deaths {deaths}'
-    print(report)
-    result = send_sms(cases, deaths)
-    return result
+    print(f'Current NC in Hospital: {in_hosp}')
+    print(f'Empty ICU Beds: {ICU_empty} ({percent_ICU_beds_open:.1f}%)')
+    print(f'Hospitalized: {in_hosp} ({percent_hospitalized:.1f}%)')
+    sms_message = f'COVID-19 Update--NC Cases:{cases} NC Deaths: {deaths}'\
+             f' In NC, {percent_positive:.1f}% tested were positive.'\
+             f' {current_mortality:.1f}% risk of death.'\
+             f' Hospitalized: {in_hosp} ({percent_hospitalized:.1f}%)'\
+             f' Empty ICU Beds: {ICU_empty} ({percent_ICU_beds_open:.1f}%)'
+    print(sms_message)
+    for number in TARGET_TO_PHONE_NUMBERS:
+        send_sms(sms_message, number)
+        time.sleep(1)
+    print('sms loop done.')
+    return 'process complete!'
 
 
 def lambda_handler(event, context):
