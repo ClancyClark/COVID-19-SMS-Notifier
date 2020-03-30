@@ -32,6 +32,11 @@ Using a cloudwatch event, the lambda is called *every 6 hours*.  I don't current
 * Since the data is not changing that quickly, please don't query the NC website excessively.
 * The lambda function is not expensive.  However, the current set-up uses twilio sms.  This can add-up and certainly other services or APIs can be built to lower the cost.
 
+**Worth Mentioning**
+
+* [NovelCOVID](https://github.com/NovelCOVID/API) is a Javascript/Typescript API sourcing from [Johns Hopkins CSSE](https://systems.jhu.edu/). Updates every 24 hours.
+* [Hokins COVID-19](https://github.com/CSSEGISandData/COVID-19) is a visualization tool/dashboard from the Johns Hopkins University Center for System Science and Enginnering (JHU CSSE) sourcing data from many locations including the CDC.
+
 **Thank You**
 
 * [Center for Health Care Innovation](https://school.wakehealth.edu/Research/Institutes-and-Centers/Center-for-Healthcare-Innovation) at [Wake Forest Baptist Health](https://www.wakehealth.edu)
