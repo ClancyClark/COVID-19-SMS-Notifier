@@ -36,6 +36,8 @@ Using a cloudwatch event, the lambda is called *every 6 hours*.  I don't current
 
 * [NovelCOVID](https://github.com/NovelCOVID/API) is a Javascript/Typescript API sourcing from [Johns Hopkins CSSE](https://systems.jhu.edu/). Updates every 24 hours.
 * [Hokins COVID-19](https://github.com/CSSEGISandData/COVID-19) is a visualization tool/dashboard from the Johns Hopkins University Center for System Science and Enginnering (JHU CSSE) sourcing data from many locations including the CDC.
+* [Interactive county level map](https://mwaugh0328.github.io/covid-19-map/us_covid_map.html) by Michael Waugh.
+* [Neherlab COVID-19 Modeling](https://neherlab.org/covid19/) -- models of infection based on mitigation efforts.  
 
 **Thank You**
 
