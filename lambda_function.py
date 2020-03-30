@@ -66,8 +66,8 @@ def current_covid_status():
     deaths = table_rows[5].text.strip().replace(',','')
     total_tested = table_rows[6].text.strip().replace(',','')
     in_hosp = table_rows[7].text.strip().replace(',','')
-    ICU_beds = table_rows[240].text.strip().replace(',','')
-    ICU_empty = table_rows[241].text.strip().replace(',','')
+    ICU_beds = table_rows[252].text.strip().replace(',','')
+    ICU_empty = table_rows[253].text.strip().replace(',','')
     percent_positive = (int(cases)/int(total_tested))*100
     percent_ICU_beds_open = (int(ICU_empty)/int(ICU_beds))*100
     percent_hospitalized = (int(in_hosp)/int(cases))*100
