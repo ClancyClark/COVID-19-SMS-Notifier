@@ -51,40 +51,31 @@ def send_sms(the_message, to_phone_number):
     return 'Successful SMS!'
     
     
+
 def current_covid_status():
     html = "https://www.ncdhhs.gov/covid-19-case-count-nc"
     page = requests.get(html)
     soup = BeautifulSoup(page.text, 'html.parser')
-    table_rows = soup.find_all('td')
+    rows = soup.find_all('td')
     # # parse each
-    # n = 0
-    # for row in table_rows:
-    #     n=n+1
-    #     print(f'row {n}: {row}')
-        
-    cases = table_rows[4].text.strip().replace(',','')
-    deaths = table_rows[5].text.strip().replace(',','')
-    total_tested = table_rows[6].text.strip().replace(',','')
-    in_hosp = table_rows[7].text.strip().replace(',','')
-    ICU_beds = table_rows[252].text.strip().replace(',','')
-    ICU_empty = table_rows[253].text.strip().replace(',','')
+    # for row in rows:
+    #     print(row)
+    cases = rows[0].text.strip().replace(',','')
+    deaths = rows[1].text.strip().replace(',','')
+    total_tested = rows[2].text.strip().replace(',','')
+    in_hosp = rows[3].text.strip().replace(',','')
     percent_positive = (int(cases)/int(total_tested))*100
-    percent_ICU_beds_open = (int(ICU_empty)/int(ICU_beds))*100
-    percent_hospitalized = (int(in_hosp)/int(cases))*100
-    # all_cases = table_rows[8].text.strip().replace(',','')
-    # # all_deaths = table_rows[9].text.strip().replace(',','')
-    # percent_of_US_population = (int(all_cases)/327200000)*100
     current_mortality = (int(deaths)/int(cases))*100
+    percent_hospitalized = (int(in_hosp)/int(cases))*100
     print(f'Current NC Cases: {cases}')
     print(f'Current NC Deaths: {deaths}')
     print(f'Current NC in Hospital: {in_hosp}')
-    print(f'Empty ICU Beds: {ICU_empty} ({percent_ICU_beds_open:.1f}%)')
+    print(f'Current NC Mortality: {current_mortality:.1f}%')
     print(f'Hospitalized: {in_hosp} ({percent_hospitalized:.1f}%)')
     sms_message = f'COVID-19 Update--NC Cases:{cases} NC Deaths: {deaths}'\
              f' In NC, {percent_positive:.1f}% tested were positive.'\
              f' {current_mortality:.1f}% risk of death.'\
-             f' Hospitalized: {in_hosp} ({percent_hospitalized:.1f}%)'\
-             f' Empty ICU Beds: {ICU_empty} ({percent_ICU_beds_open:.1f}%)'
+             f' Hospitalized: {in_hosp} ({percent_hospitalized:.1f}%)'
     print(sms_message)
     for number in TARGET_TO_PHONE_NUMBERS:
         send_sms(sms_message, number)
